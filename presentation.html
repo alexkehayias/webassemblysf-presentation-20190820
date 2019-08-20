@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Progressive WebAssembly Applications</title>
+<meta name="author" content="(@alexkehayias)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/css/theme/sky.css" id="theme"/>
+
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<meta name="description" content="WebAssembly SF Presentation"/><link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css"><link type="text/css" rel="stylesheet" href="./styles.css"/>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Progressive WebAssembly Applications</h1><h2 class="author">@alexkehayias</h2><p class="date">Created: 2019-08-19 Mon 19:58</p>
+</section>
+<section>
+<section id="slide-orgb9a6ee8">
+<h2 id="orgb9a6ee8">Hello!</h2>
+<ul>
+<li>I'm Alex</li>
+<li>I work at Stripe (we're hiring)</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org6a35fe5">
+<h2 id="org6a35fe5">Woz</h2>
+<iframe width="420" height="615" src="https://woz.sh" frameborder="0"></iframe>
+
+</section>
+</section>
+<section>
+<section id="slide-org21befc7">
+<h2 id="org21befc7">Content</h2>
+<aside class="notes">
+<p>
+While the focus of this talk is on applications, I want to start by talking about content on the internet.
+</p>
+
+</aside>
+<blockquote nil>
+<p>
+Information provided to end-users by publishers or media producers
+</p>
+</blockquote>
+<p>
+via Wikipedia
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org15a3ea6">
+<h2 id="org15a3ea6">Content</h2>
+<ul>
+<li>Static</li>
+<li>Text or media</li>
+<li>Consumable</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org6d784f2">
+<h2 id="org6d784f2">Example: NY Times article</h2>
+</section>
+</section>
+<section>
+<section id="slide-org450f7a9">
+<h2 id="org450f7a9">Content has become massively efficient</h2>
+</section>
+</section>
+<section>
+<section id="slide-orgfff415b">
+<h2 id="orgfff415b">Solves three problems</h2>
+<aside class="notes">
+<p>
+In order to understand why I thought that was interesting, I started thinking about these three problems.
+</p>
+
+</aside>
+</section>
+</section>
+<section>
+<section id="slide-org1bd8a98">
+<h3 id="org1bd8a98">Distribution</h3>
+<p>
+Getting the thing to users
+</p>
+
+<p>
+(anyone with a web browser)
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org487e02e">
+<h3 id="org487e02e">Unification</h3>
+<p>
+Write once available everywhere
+</p>
+
+<p>
+(publisher needs to know ~nothing about your computer)
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org6adcbb4">
+<h3 id="org6adcbb4">Experience</h3>
+<p>
+Easy to access, easy to use
+</p>
+
+<p>
+(almost no friction—hyperlink)
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org95179b7">
+<h2 id="org95179b7">Applications</h2>
+<aside class="notes">
+<p>
+Now let's talk about Applications. A richer kind of content, more expressive
+</p>
+
+</aside>
+<blockquote nil>
+<p>
+Software designed to perform a group of coordinated functions, tasks, or activities for the benefit of the user
+</p>
+</blockquote>
+<p>
+via Wikipedia
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org23b5d56">
+<h2 id="org23b5d56">A richer form of content</h2>
+<ul>
+<li>Interactivity</li>
+<li>Experiential</li>
+<li>Dynamic</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org437bc4e">
+<h2 id="org437bc4e">Mobile applications</h2>
+<aside class="notes">
+<p>
+Much of the attention these days is on mobile applications and rightfully so! They're remarkably successful. But let's try to imagine what it would be like if our earlier example of consuming content were like the current experience of mobile applications.
+</p>
+
+</aside>
+<p>
+Imagine if clicking a link were like mobile apps today
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org64217e8">
+<h2 id="org64217e8">Back to our problems</h2>
+<ul>
+<li>Distribution: duopoly (Apple, Google)</li>
+<li>Unification: 3rd party frameworks</li>
+<li>Experience: high friction, good performance</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org17184ee">
+<h2 id="org17184ee">Despite all progress, mobile apps are still hugely inefficient to create, distribute, and use.</h2>
+</section>
+</section>
+<section>
+<section id="slide-orgc2221a3">
+<h2 id="orgc2221a3">What if consuming an application were just like content?</h2>
+<p>
+Web applications!
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org6472cc4">
+<h2 id="org6472cc4">There's many advantages</h2>
+<div class="outline-text-2" id="text-org6472cc4">
+</div>
+</section>
+</section>
+<section>
+<section id="slide-org16b3adb">
+<h3 id="org16b3adb">Unification: standards &gt; frameworks</h3>
+<aside class="notes">
+<p>
+Standards are better at driving cooperation.
+</p>
+
+</aside>
+</section>
+</section>
+<section>
+<section id="slide-orgddb3739">
+<h3 id="orgddb3739">Distribution: hyperlinks &gt; app stores</h3>
+</section>
+</section>
+<section>
+<section id="slide-org2f639ff">
+<h3 id="org2f639ff">Experience: immediate &gt; deferred</h3>
+<ul>
+<li>WebAssembly streaming compilation</li>
+<li>Async loading</li>
+<li>Instant install</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org85e77f6">
+<h2 id="org85e77f6">Web applications</h2>
+<ul>
+<li>Distribution: web browsers (<i>including</i> mobile)</li>
+<li>Unification: standards-based</li>
+<li>Experience: lowest friction (hyperlink)</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-orgcebd0bc">
+<h2 id="orgcebd0bc">So the answer is everyone should just use a browser right?</h2>
+</section>
+</section>
+<section>
+<section id="slide-orgbd7e802">
+<h2 id="orgbd7e802">But mobile <i>is</i> different</h2>
+<ul>
+<li>Native application performance</li>
+<li>Encapsulation (e.g. home screen, self-contained experience)</li>
+<li>Offline by default</li>
+<li>Hardware/sensors</li>
+<li>Battery life</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org9b72109">
+<h2 id="org9b72109">What do we do about it?</h2>
+<aside class="notes">
+<p>
+To close the gap we need to solve some new problems 1) bringing web applications into mobile the way users expect apps to work 2) solve performance 3) lower effort needed to build applications
+</p>
+
+</aside>
+</section>
+</section>
+<section>
+<section id="slide-org27dae29">
+<h2 id="org27dae29">Step 1) Bring web applications to mobile</h2>
+<p>
+Progressive Web Applications (PWA)
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org8efb7ea">
+<h2 id="org8efb7ea">Step 2) Improve performance, open access</h2>
+<p>
+WebAssembly
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org0c94941">
+<h2 id="org0c94941">Step 3) Progressive WebAssembly Applications!</h2>
+</section>
+</section>
+<section>
+<section id="slide-org82bf765">
+<h2 id="org82bf765">Back to Woz</h2>
+<p>
+A progressive WebAssembly application (PWAA) generator
+</p>
+<ul>
+<li>Distribution via browsers</li>
+<li>Unification via web standards</li>
+<li>Experience via the good ol' hyperlink</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org94dd9bc">
+<h2 id="org94dd9bc">All the things you need to PWA</h2>
+<ul>
+<li>✅ SSL certificate</li>
+<li>✅ PWA Manifest</li>
+<li>✅ Splash screen</li>
+<li>✅ Home screen icons</li>
+<li>✅ Service worker</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-orgca6a78f">
+<h2 id="orgca6a78f">All the things you need to PWAA</h2>
+<ul>
+<li>✅ JS bindings to WebAssembly</li>
+<li>✅ Fetch, compile, run wasm</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-orgf381da7">
+<h2 id="orgf381da7">Woz - PWAA generator for Rust</h2>
+</section>
+</section>
+<section>
+<section id="slide-orged1bef0">
+<h2 id="orged1bef0">Rust 'frontend' frameworks</h2>
+<ul>
+<li>Seed</li>
+<li>Percy</li>
+<li>Sauron</li>
+<li>Yew</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-orgef9646c">
+<h2 id="orgef9646c">Compatibility</h2>
+<ul>
+<li>These days, use <code>wasm-bindgen</code></li>
+<li>A few are using <code>std-web</code> which may eventually be compatible with wasm-bindgen</li>
+<li><code>wasm-pack</code> uses <code>wasm-bindgen</code> under the hood</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org0f0bcb7">
+<h2 id="org0f0bcb7">Usage</h2>
+<div class="org-src-container">
+
+<pre  class="src src-sh"><code trim>cargo install woz
+woz signup
+woz new myapp &amp;&amp; <span style="color: #29838D;">cd</span> ./myapp
+woz deploy
+</code></pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-org2144b80">
+<h2 id="org2144b80">Writing an app</h2>
+<div class="org-src-container">
+
+<pre  class="src src-rust"><code trim><span style="color: #3B6EA8; font-weight: bold;">#</span><span style="color: #3B6EA8; font-weight: bold;">[</span><span style="color: #3B6EA8; font-weight: bold;">wasm_bindgen</span><span style="color: #3B6EA8; font-weight: bold;">]</span>
+<span style="color: #3B6EA8;">pub</span> <span style="color: #3B6EA8;">fn</span> <span style="color: #29838D;">render</span><span style="color: #3B6EA8;">()</span> <span style="color: #3B6EA8;">{</span>
+  <span style="color: #8b94a5;">// </span><span style="color: #8b94a5;">App init code here</span>
+<span style="color: #3B6EA8;">}</span>
+</code></pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orgdc89661">
+<h2 id="orgdc89661">Demo</h2>
+</section>
+</section>
+<section>
+<section id="slide-org01b5f72">
+<h2 id="org01b5f72">What's next?</h2>
+</section>
+</section>
+<section>
+<section id="slide-org0e6eea7">
+<h2 id="org0e6eea7">WebAssembly continues to evolve</h2>
+</section>
+</section>
+<section>
+<section id="slide-org2123e8b">
+<h2 id="org2123e8b">More languages and ecosystems can target WebAssembly</h2>
+</section>
+</section>
+<section>
+<section id="slide-org17da606">
+<h2 id="org17da606">Progressive Web Apps continue to evolve</h2>
+</section>
+</section>
+<section>
+<section id="slide-org466a46f">
+<h2 id="org466a46f">Is it time for the PWAA?</h2>
+</section>
+</section>
+<section>
+<section id="slide-org4e81001">
+<h2 id="org4e81001">Final thoughts</h2>
+<aside class="notes">
+<p>
+We've spent so much time trying to bring the web to mobile, but maybe it's time to bring mobile applications into the web.
+</p>
+
+</aside>
+</section>
+</section>
+<section>
+<section id="slide-org1db531d">
+<h2 id="org1db531d">Thank you!</h2>
+<p>
+Would love to hear from you. You can find me @alexkehayias.
+</p>
+
+<p>
+Questions?
+</p>
+</section>
+</section>
+</div>
+</div>
+<p>Created by Alex Kehayias</p>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>

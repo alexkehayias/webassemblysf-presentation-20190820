@@ -1,0 +1,160 @@
+#+Title: Progressive WebAssembly Applications
+#+Author: @alexkehayias
+
+#+OPTIONS: reveal_center:t reveal_progress:t reveal_history:t reveal_control:t
+#+OPTIONS: reveal_rolling_links:nil reveal_overview:t num:nil
+#+OPTIONS: reveal_width:1140 reveal_height:900
+#+OPTIONS: toc:nil
+
+#+REVEAL_ROOT: https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/
+#+REVEAL_MARGIN: 0.1
+#+REVEAL_MIN_SCALE: 1.0
+#+REVEAL_MAX_SCALE: 2.5
+#+REVEAL_TRANS: none
+#+REVEAL_THEME: sky
+#+REVEAL_HLEVEL: 3
+#+REVEAL_HEAD_PREAMBLE: <meta name="description" content="WebAssembly SF Presentation"/><link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css"><link type="text/css" rel="stylesheet" href="./styles.css"/>
+#+REVEAL_POSTAMBLE: <p>Created by Alex Kehayias</p>
+#+REVEAL_PLUGINS: (markdown notes zoom)
+* Hello!
+- I'm Alex
+- I work at Stripe (we're hiring)
+* Woz
+#+REVEAL_HTML: <iframe width="420" height="615" src="https://woz.sh" frameborder="0"></iframe>
+
+* Content
+#+BEGIN_NOTES
+While the focus of this talk is on applications, I want to start by talking about content on the internet.
+#+END_NOTES
+#+begin_quote
+ Information provided to end-users by publishers or media producers
+#+end_quote
+via Wikipedia
+* Content
+- Static
+- Text or media
+- Consumable
+* Example: HackerNews article
+* Content has become massively efficient
+* Solves three problems
+#+BEGIN_NOTES
+In order to understand why I thought that was interesting, I started thinking about these three problems.
+#+END_NOTES
+** Distribution
+Getting the thing to users
+
+(anyone with a web browser)
+** Unification
+Write once available everywhere
+
+(publisher needs to know ~nothing aboput your computer)
+** Experience
+Easy to access, easy to use
+
+(almost no friction—hyperlink)
+* Applications
+#+BEGIN_NOTES
+Now let's talk about Applications. A richer kind of content, more expressive
+#+END_NOTES
+#+begin_quote
+Software designed to perform a group of coordinated functions, tasks, or activities for the benefit of the user
+#+end_quote
+via Wikipedia
+* A richer form of content
+- Interactivity
+- Experiential
+- Dynamic
+* Mobile applications
+#+BEGIN_NOTES
+Much of the attention these days is on mobile applications and rightfully so! They're remarkably successful. But let's try to imagine what it would be like if our earlier example of consuming content were like the current experience of mobile applications.
+#+END_NOTES
+Imagine if clicking a link were like mobile apps today
+* Back to our problems
+- Distribution: duopoly (Apple, Google)
+- Unification: 3rd party frameworks
+- Experience: high friction, good performance
+* Despite all progress, mobile apps are still hugely inefficient to create, distribute, and use.
+* What if consuming an application were just like content?
+Web applications!
+* There's many advantages
+** Unification: standards > frameworks
+#+BEGIN_NOTES
+Standards are better at driving cooperation.
+#+END_NOTES
+** Distribution: hyperlinks > app stores
+** Experience: immediate > deferred
+- WebAssembly streaming compilation
+- Async loading
+- Instant install
+* Web applications
+- Distribution: web browsers (/including/ mobile)
+- Unification: standards-based
+- Experience: lowest friction (hyperlink)
+* So the answer is everyone should just use a browser right?
+* But mobile /is/ different
+- Native application performance
+- Encapsulation (e.g. home screen, self-contained experience)
+- Offline by default
+- Hardware/sensors
+- Battery life
+* What do we do about it?
+#+BEGIN_NOTES
+To close the gap we need to solve some new problems 1) bringing web applications into mobile the way users expect apps to work 2) solve performance 3) lower effort needed to build applications
+#+END_NOTES
+* Step 1) Bring web applications to mobile
+Progressive Web Applications (PWA)
+* Step 2) Improve performance, open access
+WebAssembly
+* Step 3) Progressive WebAssembly Applications!
+* Back to Woz
+A progressive WebAssembly application (PWAA) generator
+- Distribution via browsers
+- Unification via web standards
+- Experience via the good ole hyperlink
+* All the things you need to PWA
+- ✅ SSL certificate
+- ✅ PWA Manifest
+- ✅ Splash screen
+- ✅ Home screen icons
+- ✅ Service worker
+* All the things you need to PWAA
+- ✅ JS bindings to WebAssembly
+- ✅ Fetch, compile, run wasm
+* A quick tour
+* Rust 'frontend' frameworks
+- Seed
+- Percy
+- Sauron
+- Yew
+* Compatibility
+- These days, use ~wasm-bindgen~
+- A few are using ~std-web~ which may eventually be compatible with wasm-bindgen
+- ~wasm-pack~ uses ~wasm-bindgen~ under the hood
+* Usage
+#+begin_src sh
+cargo install woz
+woz signup
+woz new myapp && cd ./myapp
+woz deploy
+#+end_src
+* Writing an app
+#+begin_src rust
+#[wasm_bindgen]
+pub fn render() {
+  // App init code here
+}
+#+end_src
+* Demo
+* What's next?
+* WebAssembly continues to evolve
+* More languages and ecosystems can target WebAssembly
+* Progressive Web Apps continue to evolve
+* Is it time for the PWAA?
+* Final thoughts
+#+BEGIN_NOTES
+We've spent so much time trying to bring the web to mobile, but maybe it's time to bring mobile applications into the web.
+#+END_NOTES
+* Thank you!
+Would love to hear from you. You can find me @alexkehayias.
+
+Questions?
