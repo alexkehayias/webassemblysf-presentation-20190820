@@ -2,7 +2,7 @@
 Slides from my talk at the WebAssembly SF meetup on August 20th, 2019.
 
 View the slides (HTML):
-http://htmlpreview.github.io/?https://raw.githubusercontent.com/alexkehayias/webassemblysf-presentation-20190820/master/presentation.html
+https://alexkehayias.github.io/webassemblysf-presentation-20190820/
 
 Generating the slides (via Emacs org-mode):
 - Install latest ~org-mode~
