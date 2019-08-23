@@ -13,7 +13,7 @@
 #+REVEAL_TRANS: none
 #+REVEAL_THEME: sky
 #+REVEAL_HLEVEL: 3
-#+REVEAL_HEAD_PREAMBLE: <meta name="description" content="WebAssembly SF Presentation"/><link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css"><link type="text/css" rel="stylesheet" href="./styles.css"/>
+#+REVEAL_HEAD_PREAMBLE: <meta name="description" content="WebAssembly SF Presentation"/><link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet" type="text/css"><link type="text/css" rel="stylesheet" href="./styles.css"/>
 #+REVEAL_POSTAMBLE: <p>Created by Alex Kehayias</p>
 #+REVEAL_PLUGINS: (markdown notes zoom)
 * Hello!
@@ -77,15 +77,12 @@ Imagine if clicking a link were like mobile apps today
 * What if consuming an application were just like content?
 Web applications!
 * There's many advantages
+** Distribution: browsers > app stores
 ** Unification: standards > frameworks
 #+BEGIN_NOTES
 Standards are better at driving cooperation.
 #+END_NOTES
-** Distribution: hyperlinks > app stores
 ** Experience: immediate > deferred
-- WebAssembly streaming compilation
-- Async loading
-- Instant install
 * Web applications
 - Distribution: web browsers (/including/ mobile)
 - Unification: standards-based
@@ -155,6 +152,6 @@ pub fn render() {
 We've spent so much time trying to bring the web to mobile, but maybe it's time to bring mobile applications into the web.
 #+END_NOTES
 * Thank you!
-Would love to hear from you. You can find me @alexkehayias.
+Check out woz at https://woz.sh
 
-Questions?
+Would love to hear from you. You can find me @alexkehayias.
